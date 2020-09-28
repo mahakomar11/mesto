@@ -1,0 +1,16 @@
+.place__icon-like {
+  height: 28px;
+  width: 25px;
+  border: 0;
+  background-color: inherit;
+  background-image: url('/images/like.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+}
+
+.place__icon-like:hover {
+  opacity: 0.6;
+  transition: ease-out 0.5s;
+}

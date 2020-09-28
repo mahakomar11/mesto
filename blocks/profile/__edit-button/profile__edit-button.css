@@ -1,0 +1,19 @@
+.profile__edit-button {
+  margin-left: 17px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  background-color: inherit;
+  background-image: url('/images/edit.svg');
+  background-repeat: no-repeat;
+  background-size: 10px;
+  background-position: center;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+  transition: ease-out 0.5s;
+}
