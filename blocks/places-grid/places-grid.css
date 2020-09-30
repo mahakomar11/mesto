@@ -1,6 +1,7 @@
 .places-grid {
-  list-style: none;
+  width: 88%;
   max-width: 882px;
+  list-style: none;
   margin: 0 auto 0;
   padding: 0;
   display: grid;
