@@ -30,3 +30,12 @@
   opacity: 0.6;
   transition: ease-out 0.5s;
 }
+
+@media screen and (max-width: 660px) {
+  .profile__add-button {
+    margin-left: 0;
+    margin-top: 36px;
+    width: 100%;
+    max-width: 540px;
+  }
+}

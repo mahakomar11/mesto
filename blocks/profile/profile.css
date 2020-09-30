@@ -6,3 +6,10 @@
   align-items: center;
   margin: 40px auto 51px;
 }
+
+@media screen and (max-width: 660px) {
+  .profile {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
