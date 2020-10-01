@@ -18,6 +18,7 @@
 @import url(/blocks/place/__icon-like/place__icon-like.css);
 @import url(/blocks/footer/footer.css);
 @import url(/blocks/footer/__copyright/footer__copyright.css);
+@import url(/blocks/popup/popup.css);
 
 /* * {
   outline: 1px solid red;
