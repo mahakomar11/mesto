@@ -5,7 +5,7 @@
   border: none;
   width: 47px;
   height: 47px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   cursor: pointer;
   transition: ease-out 0.5s;
 }
@@ -32,6 +32,10 @@
 .popup__close-button:hover {
   opacity: 0.6;
   transition: ease-out 0.5s;
+}
+
+.popup__close-button:active {
+  outline: none;
 }
 
 @media screen and (max-width: 540px) {
