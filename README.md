@@ -1,17 +1,22 @@
-# Проект 4: Место
+# Project Mesto.Russia
 
-### Обзор
+### Description
 
-* Figma
-* Картинки
+Project link: https://tinypng.com/
+Interactive site that allows to save photos from Russia with love (actually, with likes). At the current moment of developing you can change your name and occupation in profile (just don't restart the page, otherwise you'll became Kusto again).
 
-**Figma**
+### Technologies
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+The following technologies were used:
+1. Flexbox
+1. Grid Layout
+1. Media queries
+1. BEM (Nested structure)
+1. Basic JavaScript
 
-**Картинки**
+### Future Plans
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+* Make cross browser
+* Save edited name and occupation
+* Add possibility to like photos
+* Add possibility to add photos
