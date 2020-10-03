@@ -8,7 +8,7 @@
 @import url(/blocks/profile/__info/profile__info.css);
 @import url(/blocks/profile/__name/profile__name.css);
 @import url(/blocks/profile/__edit-button/profile__edit-button.css);
-@import url(/blocks/profile/__description/profile__description.css);
+@import url(/blocks/profile/__job/profile__job.css);
 @import url(/blocks/profile/__add-button/profile__add-button.css);
 @import url(/blocks/places-grid/places-grid.css);
 @import url(/blocks/place/place.css);
@@ -19,6 +19,14 @@
 @import url(/blocks/footer/footer.css);
 @import url(/blocks/footer/__copyright/footer__copyright.css);
 @import url(/blocks/popup/popup.css);
+@import url(/blocks/popup/_opened/popup_opened.css);
+@import url(/blocks/popup/__container/popup__container.css);
+@import url(/blocks/popup/__title/popup__title.css);
+@import url(/blocks/popup/__input/popup__input.css);
+@import url(/blocks/popup/__input/_content/popup__input_content_name.css);
+@import url(/blocks/popup/__input/_content/popup__input_content_job.css);
+@import url(/blocks/popup/__submit-button/popup__submit-button.css);
+@import url(/blocks/popup/__close-button/popup__close-button.css);
 
 /* * {
   outline: 1px solid red;
