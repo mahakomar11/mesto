@@ -17,10 +17,10 @@
         <img src="images/profile-avatar.png" alt="Аватар профиля" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button type="button" class="profile__edit-button"></button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button type="button" class="profile__add-button"></button>
       </section>
 
       <section class="places">
@@ -29,42 +29,42 @@
             <img src="images/place-karachaevsk.png" alt="Фото Карачаевска" class="place__photo">
             <div class="place__description">
               <h2 class="place__title">Карачаевск</h2>
-              <button class="place__icon-like"></button>
+              <button type="button" class="place__icon-like"></button>
             </div>
           </li>
           <li class="place">
             <img src="images/place-elbrus.png" alt="Фото Эльбруса" class="place__photo">
             <div class="place__description">
               <h2 class="place__title">Гора Эльбрус</h2>
-              <button class="place__icon-like"></button>
+              <button type="button" class="place__icon-like"></button>
             </div>
           </li>
           <li class="place">
             <img src="images/place-dombai.png" alt="Фото Домбая" class="place__photo">
             <div class="place__description">
               <h2 class="place__title">Домбай</h2>
-              <button class="place__icon-like"></button>
+              <button type="button" class="place__icon-like"></button>
             </div>
           </li>
           <li class="place">
             <img src="images/place-elbrus.png" alt="Фото Эльбруса" class="place__photo">
             <div class="place__description">
               <h2 class="place__title">Гора Эльбрус</h2>
-              <button class="place__icon-like"></button>
+              <button type="button" class="place__icon-like"></button>
             </div>
           </li>
           <li class="place">
             <img src="images/place-dombai.png" alt="Фото Домбая" class="place__photo">
             <div class="place__description">
               <h2 class="place__title">Домбай</h2>
-              <button class="place__icon-like"></button>
+              <button type="button" class="place__icon-like"></button>
             </div>
           </li>
           <li class="place">
             <img src="images/place-karachaevsk.png" alt="Фото Карачаево-Черкесии" class="place__photo">
             <div class="place__description">
               <h2 class="place__title">Карачаево-Черкесия</h2>
-              <button class="place__icon-like"></button>
+              <button type="button" class="place__icon-like"></button>
             </div>
           </li>
         </ul>
@@ -75,13 +75,13 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
     <section class="popup">
-      <form class="popup__container">
+      <form name="profile-info" class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_content_name">
-        <input type="text" class="popup__input popup__input_content_job">
+        <input type="text" name="name" class="popup__input popup__input_content_name">
+        <input type="text" name="job" class="popup__input popup__input_content_job">
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
-      <button class="popup__close-button"></button>
+      <button type="button" class="popup__close-button"></button>
     </section>
   </div>
   <script src="scripts/index.js"></script>
