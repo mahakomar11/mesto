@@ -2,7 +2,8 @@
 
 ### Description
 
-Project link: https://tinypng.com/
+Project link: https://mahakomar11.github.io/mesto/
+
 Interactive site that allows to save photos from Russia with love (actually, with likes). At the current moment of developing you can change your name and occupation in profile (just don't restart the page, otherwise you'll became Kusto again).
 
 ### Technologies
