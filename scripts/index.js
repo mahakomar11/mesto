@@ -13,9 +13,9 @@ function togglePopup() {
 }
 
 function clickOnEdit() {
-  togglePopup();
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
+  togglePopup();
 }
 
 function clickOnBackground(event) {
