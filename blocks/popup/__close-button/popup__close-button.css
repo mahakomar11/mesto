@@ -1,8 +1,8 @@
 .popup__close-button {
   position: absolute;
   padding: 0;
-  top: -47px;
-  right: -47px;
+  top: -42px;
+  right: -42px;
   border: none;
   width: 47px;
   height: 47px;
@@ -17,8 +17,8 @@
   top: calc(47px / 2);
   left: 0;
   content: " ";
-  height: 5px;
-  width: 52px;
+  height: 4px;
+  width: 40.7px;
   background-color: white;
 }
 
