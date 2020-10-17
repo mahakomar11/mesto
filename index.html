@@ -25,48 +25,6 @@
 
       <section class="places">
         <ul class="places__grid">
-          <li class="place">
-            <img src="images/place-karachaevsk.png" alt="Фото Карачаевска" class="place__photo">
-            <div class="place__description">
-              <h2 class="place__title">Карачаевск</h2>
-              <button type="button" area-label="Like" class="place__icon-like"></button>
-            </div>
-          </li>
-          <li class="place">
-            <img src="images/place-elbrus.png" alt="Фото Эльбруса" class="place__photo">
-            <div class="place__description">
-              <h2 class="place__title">Гора Эльбрус</h2>
-              <button type="button" area-label="Like" class="place__icon-like"></button>
-            </div>
-          </li>
-          <li class="place">
-            <img src="images/place-dombai.png" alt="Фото Домбая" class="place__photo">
-            <div class="place__description">
-              <h2 class="place__title">Домбай</h2>
-              <button type="button" area-label="Like" class="place__icon-like"></button>
-            </div>
-          </li>
-          <li class="place">
-            <img src="images/place-elbrus.png" alt="Фото Эльбруса" class="place__photo">
-            <div class="place__description">
-              <h2 class="place__title">Гора Эльбрус</h2>
-              <button type="button" area-label="Like" class="place__icon-like"></button>
-            </div>
-          </li>
-          <li class="place">
-            <img src="images/place-dombai.png" alt="Фото Домбая" class="place__photo">
-            <div class="place__description">
-              <h2 class="place__title">Домбай</h2>
-              <button type="button" area-label="Like" class="place__icon-like"></button>
-            </div>
-          </li>
-          <li class="place">
-            <img src="images/place-karachaevsk.png" alt="Фото Карачаево-Черкесии" class="place__photo">
-            <div class="place__description">
-              <h2 class="place__title">Карачаево-Черкесия</h2>
-              <button type="button" area-label="Like" class="place__icon-like"></button>
-            </div>
-          </li>
         </ul>
       </section>
     </main>
@@ -86,6 +44,16 @@
       </div>
     </section>
   </div>
-  <script src="scripts/index.js"></script>
+
+  <template id="place">
+    <li class="place">
+      <div class="place__photo"></div>
+      <div class="place__description">
+        <h2 class="place__title"></h2>
+        <button type="button" area-label="Like" class="place__icon-like"></button>
+      </div>
+    </li>
+  </template>
+  <script src="scripts/index1.js"></script>
 </body>
 </html>
