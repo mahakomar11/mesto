@@ -1,0 +1,19 @@
+.place__icon-delete {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  height: 19.3px;
+  width: 18px;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('../../../images/Group.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+}
+
+.place__icon-delete:hover {
+  opacity: 0.6;
+  transition: ease-out 0.5s;
+}

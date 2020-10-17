@@ -38,6 +38,12 @@ const toggleLike = (event) => {
   buttonLike = event.target;
   buttonLike.classList.toggle('place__icon-like_active');
 }
+
+const deleteCard = (event) => {
+  buttonDelete = event.target;
+  cardElement = buttonDelete.closest('.place');
+  cardElement.remove();
+}
 const addCard = (cardData) => {
   const cardElement = cardTemplate.cloneNode(true);
   const cardPhoto = cardElement.querySelector('.place__photo');
@@ -48,6 +54,9 @@ const addCard = (cardData) => {
 
   const cardButtonLike = cardElement.querySelector('.place__icon-like');
   cardButtonLike.addEventListener('click', toggleLike);
+
+  const cardButtonDelete = cardElement.querySelector('.place__icon-delete');
+  cardButtonDelete.addEventListener('click', deleteCard);
 
   gridCards.append(cardElement);
 }
