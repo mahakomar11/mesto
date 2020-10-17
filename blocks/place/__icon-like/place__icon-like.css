@@ -14,3 +14,7 @@
   opacity: 0.6;
   transition: ease-out 0.5s;
 }
+
+.place__icon-like:focus {
+  outline: 0;
+}

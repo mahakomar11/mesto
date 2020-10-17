@@ -34,6 +34,10 @@ const initialCards = [
 const gridCards = document.querySelector('.places__grid');
 const cardTemplate = document.querySelector("#place").content;
 
+const toggleLike = (event) => {
+  buttonLike = event.target;
+  buttonLike.classList.toggle('place__icon-like_active');
+}
 const addCard = (cardData) => {
   const cardElement = cardTemplate.cloneNode(true);
   const cardPhoto = cardElement.querySelector('.place__photo');
@@ -41,6 +45,9 @@ const addCard = (cardData) => {
 
   cardPhoto.style.backgroundImage = `url(${cardData.link})`;
   cardTitle.textContent = cardData.name;
+
+  const cardButtonLike = cardElement.querySelector('.place__icon-like');
+  cardButtonLike.addEventListener('click', toggleLike);
 
   gridCards.append(cardElement);
 }
