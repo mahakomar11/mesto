@@ -1,5 +1,4 @@
-@media screen and (max-width: 1024px) {
-  .popup__photo {
-    width: 100%;
-  }
+.popup__photo {
+  max-height: 75vh;
+  max-width: 75vw;
 }

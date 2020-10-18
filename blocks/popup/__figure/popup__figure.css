@@ -2,13 +2,6 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, calc(-50% + 22px));
   margin: 0;
-  max-width: 882px;
-}
-
-@media screen and (max-width: 1024px) {
-  .popup__figure {
-    width: calc(100% - 80px);
-  }
 }
