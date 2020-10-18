@@ -35,6 +35,7 @@ const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const buttonsClose = document.querySelectorAll('.popup__close-button');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupAddCard = document.querySelector('.popup_type_add-card');
 
 const togglePopup = (popup) => {
   popup.classList.toggle('popup_opened');
@@ -67,8 +68,8 @@ const buttonSubmitProfile = popupEditProfile.querySelector('.popup__submit-butto
 const submitPopupEditProfile = (event) => {
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
-  togglePopup(popupEditProfile);
   event.preventDefault();
+  togglePopup(popupEditProfile);
 }
 
 buttonSubmitProfile.addEventListener('click', submitPopupEditProfile);
@@ -102,7 +103,7 @@ const openPopupShowCard = (event) => {
 }
 
 
-const addCard = (cardData) => {
+const addCard = (cardData, inStart = true) => {
   const cardElement = cardTemplate.cloneNode(true);
   const cardPhoto = cardElement.querySelector('.place__photo');
   const cardTitle = cardElement.querySelector('.place__title');
@@ -117,9 +118,30 @@ const addCard = (cardData) => {
   const cardButtonDelete = cardElement.querySelector('.place__icon-delete');
   cardButtonDelete.addEventListener('click', deleteCard);
 
-  gridCards.append(cardElement);
+  if (inStart) gridCards.prepend(cardElement)
+  else gridCards.append(cardElement);
 }
 
-initialCards.forEach(cardData => addCard(cardData));
+initialCards.forEach(cardData => addCard(cardData, false));
 
 
+buttonAdd.addEventListener('click', () => togglePopup(popupAddCard));
+
+const submitPopupAddCard = (event) => {
+  const inputTitle = popupAddCard.querySelector('.popup__input_content_title');
+  const inputLink = popupAddCard.querySelector('.popup__input_content_link');
+
+  const cardData = {
+    name: inputTitle.value,
+    link: inputLink.value,
+  }
+
+  addCard(cardData);
+  event.preventDefault();
+  togglePopup(popupAddCard);
+  inputTitle.value = '';
+  inputLink.value = '';
+}
+
+const buttonSubmitCard = popupAddCard.querySelector('.popup__submit-button');
+buttonSubmitCard.addEventListener('click', submitPopupAddCard);
