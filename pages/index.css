@@ -21,15 +21,26 @@
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");
 @import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/_type/popup_type_edit-profile.css");
+@import url("../blocks/popup/_type/popup_type_add-card.css");
+@import url("../blocks/popup/_type/popup_type_show-card.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/popup/__container/popup__container.css");
+@import url("../blocks/popup/__container/_type/popup__container_type_edit-profile.css");
+@import url("../blocks/popup/__container/_type/popup__container_type_add-card.css");
 @import url("../blocks/popup/__form/popup__form.css");
 @import url("../blocks/popup/__title/popup__title.css");
 @import url("../blocks/popup/__input/popup__input.css");
 @import url("../blocks/popup/__input/_content/popup__input_content_name.css");
 @import url("../blocks/popup/__input/_content/popup__input_content_job.css");
+@import url("../blocks/popup/__input/_content/popup__input_content_title.css");
+@import url("../blocks/popup/__input/_content/popup__input_content_link.css");
 @import url("../blocks/popup/__submit-button/popup__submit-button.css");
 @import url("../blocks/popup/__close-button/popup__close-button.css");
+@import url("../blocks/popup/__close-button/_fluid/popup__close-button_fluid.css");
+@import url("../blocks/popup/__figure/popup__figure.css");
+@import url("../blocks/popup/__photo/popup__photo.css");
+@import url("../blocks/popup/__caption/popup__caption.css");
 
 /* * {
   outline: 1px solid red;

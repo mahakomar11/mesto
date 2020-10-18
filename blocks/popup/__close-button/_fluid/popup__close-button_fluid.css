@@ -1,0 +1,6 @@
+@media screen and (max-width: 540px) {
+  .popup__close-button_fluid {
+    top: -58px;
+    right: -16px;
+  }
+}

@@ -11,3 +11,18 @@
   color: #000000;
   position: relative;
 }
+
+.popup__input::placeholder {
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #c4c4c4;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__input::placeholder {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}

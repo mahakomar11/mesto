@@ -33,16 +33,36 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
-      <div class="popup__container">
+    <section class="popup popup_type_edit-profile">
+      <div class="popup__container popup__container_type_edit-profile">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form name="profile-info" class="popup__form">
           <input type="text" name="name" class="popup__input popup__input_content_name">
           <input type="text" name="job" class="popup__input popup__input_content_job">
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
+        <button type="button" area-label="Close" class="popup__close-button popup__close-button_fluid"></button>
+      </div>
+    </section>
+
+    <section class="popup popup_type_add-card">
+      <div class="popup__container popup__container_type_add-card">
+        <h2 class="popup__title">Новое место</h2>
+        <form name="profile-info" class="popup__form">
+          <input type="text" name="title" class="popup__input popup__input_content_title" placeholder="Название">
+          <input type="text" name="link" class="popup__input popup__input_content_link" placeholder="Ссылка на картинку">
+          <button type="submit" class="popup__submit-button">Создать</button>
+        </form>
         <button type="button" area-label="Close" class="popup__close-button"></button>
       </div>
+    </section>
+
+    <section class="popup popup_type_show-card">
+      <figure class="popup__figure">
+        <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" class="popup__photo">
+        <figcaption class="popup__caption">Архыз</figcaption>
+        <button type="button" area-label="Close" class="popup__close-button"></button>
+      </figure>
     </section>
   </div>
 
