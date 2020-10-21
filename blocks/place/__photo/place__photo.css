@@ -1,9 +1,7 @@
 .place__photo {
+  position: absolute;
   width: 100%;
-  padding-bottom: 100%;
+  height: 100%;
   border-radius: 10px 10px 0 0;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
   cursor: pointer;
 }
