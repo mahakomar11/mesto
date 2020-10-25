@@ -51,8 +51,8 @@ const buttonSubmitCard = popupAddCard.querySelector('.popup__submit-button');
 const popupShowCard = document.querySelector('.popup_type_show-card');
 const popupPhoto = popupShowCard.querySelector('.popup__photo');
 const popupCaption = popupShowCard.querySelector('.popup__caption');
-// Array with all popups' close buttons
-const closeButtons = document.querySelectorAll('.popup__close-button');
+// Array with all popups
+const popups = document.querySelectorAll('.popup');
 
 const toggleLike = (event) => {
   const buttonLike = event.target;
@@ -95,9 +95,10 @@ const togglePopup = (popup) => {
 }
 
 const closePopup = (event) => {
-  const buttonClose = event.target;
-  const popup = buttonClose.closest('.popup');
-  togglePopup(popup);
+  // Close popup when user click on background or close button
+  if (event.target === event.currentTarget || event.target.classList.contains('popup__close-button')) {
+    togglePopup(event.currentTarget);
+  };
 }
 
 const submitPopup = (event, popup) => {
@@ -140,8 +141,12 @@ initialCards.forEach(cardData => addCard(cardData, false));
 // Add listeners to buttons that open popups
 buttonEdit.addEventListener('click', openPopupEditProfile);
 buttonAdd.addEventListener('click', () => togglePopup(popupAddCard));
-// Add listeners to buttons that close popups
-closeButtons.forEach(button => button.addEventListener('click', closePopup));
+// Add listeners to popups for closing
+popups.forEach(popup => popup.addEventListener('click', closePopup));
 // Add listeners to buttons that submit popups
 buttonSubmitProfile.addEventListener('click', submitPopupEditProfile);
 buttonSubmitCard.addEventListener('click', submitPopupAddCard);
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') popups.forEach(popup => popup.classList.remove('popup_opened'));
+});
