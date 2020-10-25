@@ -37,8 +37,10 @@
       <div class="popup__container popup__container_type_edit-profile">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form name="profile-info" class="popup__form">
-          <input type="text" name="name" class="popup__input popup__input_content_name">
-          <input type="text" name="job" class="popup__input popup__input_content_job">
+          <input type="text" name="name" id="name" class="popup__input popup__input_content_name" minlength=2 maxlength=40 required>
+          <span class="popup__error" id="name-error"></span>
+          <input type="text" name="job" id="job" class="popup__input popup__input_content_job" minlength=2 maxlength=200 required>
+          <span class="popup__error" id="job-error"></span>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
         <button type="button" area-label="Close" class="popup__close-button popup__close-button_fluid"></button>
@@ -49,8 +51,10 @@
       <div class="popup__container popup__container_type_add-card">
         <h2 class="popup__title">Новое место</h2>
         <form name="profile-info" class="popup__form">
-          <input type="text" name="title" class="popup__input popup__input_content_title" placeholder="Название">
-          <input type="text" name="link" class="popup__input popup__input_content_link" placeholder="Ссылка на картинку">
+          <input type="text" name="title" id="title" class="popup__input popup__input_content_title" placeholder="Название" minlength=2 maxlength=30 required>
+          <span class="popup__error" id="title-error"></span>
+          <input type="url" name="link" id="link" class="popup__input popup__input_content_link" placeholder="Ссылка на картинку" required>
+          <span class="popup__error" id="link-error"></span>
           <button type="submit" class="popup__submit-button">Создать</button>
         </form>
         <button type="button" area-label="Close" class="popup__close-button"></button>
@@ -77,5 +81,6 @@
     </li>
   </template>
   <script src="scripts/index.js"></script>
+  <script src="scripts/validate.js"></script>
 </body>
 </html>
