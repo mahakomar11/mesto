@@ -99,11 +99,12 @@ const openPopup = (popup) => {
 }
 
 const resetInputs = (popup) => {
-  const errorsArray = Array.from(popup.querySelectorAll('.popup__error'));
-  const inputsArray = Array.from(popup.querySelectorAll('.popup__input'));
+  const inputsArray = Array.from(popup.querySelectorAll(selectors.inputSelector));
+  const errorsArray = Array.from(popup.querySelectorAll(selectors.errorSelector));
+  
   inputsArray.forEach(input => {
     input.value = '';
-    input.classList.remove('popup__input_type_error');
+    input.classList.remove(selectors.inputErrorClass);
   })
   errorsArray.forEach(error => error.textContent = '');
 }
