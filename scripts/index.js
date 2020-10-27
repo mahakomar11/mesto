@@ -105,6 +105,16 @@ const closePopup = (popup) => {
   resetInputs(popup);
 }
 
+const resetInputs = (popup) => {
+  const errorsArray = Array.from(popup.querySelectorAll('.popup__error'));
+  const inputsArray = Array.from(popup.querySelectorAll('.popup__input'));
+  inputsArray.forEach(input => {
+    input.value = '';
+    input.classList.remove('popup__input_type_error');
+  })
+  errorsArray.forEach(error => error.textContent = '');
+}
+
 const closePopupByClick = (event) => {
   if (event.target === event.currentTarget || event.target.classList.contains('popup__close-button')) {
     closePopup(event.currentTarget);
