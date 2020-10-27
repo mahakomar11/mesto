@@ -94,10 +94,27 @@ const togglePopup = (popup) => {
   popup.classList.toggle('popup_opened');
 }
 
-const closePopup = (event) => {
-  // Close popup when user click on background or close button
+const openPopup = (popup) => {
+  togglePopup(popup);
+  document.addEventListener('keydown', closePopupByEsc);
+}
+
+const closePopup = (popup) => {
+  document.removeEventListener('keydown', closePopupByEsc);
+  togglePopup(popup);
+  resetInputs(popup);
+}
+
+const closePopupByClick = (event) => {
   if (event.target === event.currentTarget || event.target.classList.contains('popup__close-button')) {
-    togglePopup(event.currentTarget);
+    closePopup(event.currentTarget);
+  };
+}
+
+const closePopupByEsc = (event) => {
+  const popup = document.querySelector('.popup_opened');
+  if (event.key === 'Escape') {
+    closePopup(popup);
   };
 }
 
@@ -109,7 +126,7 @@ const submitPopup = (event, popup) => {
 const openPopupEditProfile = () => {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  togglePopup(popupEditProfile);
+  openPopup(popupEditProfile);
 }
 
 const submitPopupEditProfile = (event) => {
@@ -122,7 +139,7 @@ const openPopupShowCard = (cardData) => {
   popupPhoto.src = cardData.link;
   popupPhoto.alt = 'Фото, ' + cardData.name;
   popupCaption.textContent = cardData.name;
-  togglePopup(popupShowCard);
+  openPopup(popupShowCard);
 }
 
 const submitPopupAddCard = (event) => {
@@ -136,17 +153,15 @@ const submitPopupAddCard = (event) => {
   inputLink.value = '';
 }
 
+inputName.value = profileName.textContent;
+inputJob.value = profileJob.textContent;
 // Add initial cards to grid
 initialCards.forEach(cardData => addCard(cardData, false));
 // Add listeners to buttons that open popups
 buttonEdit.addEventListener('click', openPopupEditProfile);
-buttonAdd.addEventListener('click', () => togglePopup(popupAddCard));
+buttonAdd.addEventListener('click', () => openPopup(popupAddCard));
 // Add listeners to popups for closing
-popups.forEach(popup => popup.addEventListener('click', closePopup));
+popups.forEach(popup => popup.addEventListener('click', closePopupByClick));
 // Add listeners to buttons that submit popups
 buttonSubmitProfile.addEventListener('click', submitPopupEditProfile);
 buttonSubmitCard.addEventListener('click', submitPopupAddCard);
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') popups.forEach(popup => popup.classList.remove('popup_opened'));
-});
