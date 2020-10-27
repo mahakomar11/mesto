@@ -89,7 +89,6 @@ const deleteCard = (event) => {
   cardElement.remove();
 }
 
-
 const togglePopup = (popup) => {
   popup.classList.toggle('popup_opened');
 }
@@ -97,12 +96,6 @@ const togglePopup = (popup) => {
 const openPopup = (popup) => {
   togglePopup(popup);
   document.addEventListener('keydown', closePopupByEsc);
-}
-
-const closePopup = (popup) => {
-  document.removeEventListener('keydown', closePopupByEsc);
-  togglePopup(popup);
-  resetInputs(popup);
 }
 
 const resetInputs = (popup) => {
@@ -113,6 +106,12 @@ const resetInputs = (popup) => {
     input.classList.remove('popup__input_type_error');
   })
   errorsArray.forEach(error => error.textContent = '');
+}
+
+const closePopup = (popup) => {
+  document.removeEventListener('keydown', closePopupByEsc);
+  togglePopup(popup);
+  resetInputs(popup);
 }
 
 const closePopupByClick = (event) => {
@@ -136,6 +135,7 @@ const submitPopup = (event, popup) => {
 const openPopupEditProfile = () => {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
+  setSubmitButtonAbility(buttonSubmitProfile, selectors.inactiveButtonClass, true);
   openPopup(popupEditProfile);
 }
 
@@ -145,11 +145,9 @@ const submitPopupEditProfile = (event) => {
   submitPopup(event, popupEditProfile);
 }
 
-const openPopupShowCard = (cardData) => {
-  popupPhoto.src = cardData.link;
-  popupPhoto.alt = 'Фото, ' + cardData.name;
-  popupCaption.textContent = cardData.name;
-  openPopup(popupShowCard);
+const openPopupAddCard = () => {
+  setSubmitButtonAbility(buttonSubmitCard, selectors.inactiveButtonClass, false);
+  openPopup(popupAddCard);
 }
 
 const submitPopupAddCard = (event) => {
@@ -163,13 +161,18 @@ const submitPopupAddCard = (event) => {
   inputLink.value = '';
 }
 
-inputName.value = profileName.textContent;
-inputJob.value = profileJob.textContent;
+const openPopupShowCard = (cardData) => {
+  popupPhoto.src = cardData.link;
+  popupPhoto.alt = 'Фото, ' + cardData.name;
+  popupCaption.textContent = cardData.name;
+  openPopup(popupShowCard);
+}
+
 // Add initial cards to grid
 initialCards.forEach(cardData => addCard(cardData, false));
 // Add listeners to buttons that open popups
 buttonEdit.addEventListener('click', openPopupEditProfile);
-buttonAdd.addEventListener('click', () => openPopup(popupAddCard));
+buttonAdd.addEventListener('click', openPopupAddCard);
 // Add listeners to popups for closing
 popups.forEach(popup => popup.addEventListener('click', closePopupByClick));
 // Add listeners to buttons that submit popups

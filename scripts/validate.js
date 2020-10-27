@@ -9,14 +9,19 @@ const checkValidity = (inputElement, errorElement, selectors) => {
   }
 }
 
-const checkValidityForSubmit = (inputElementsArray, submitButton, selectors) => {
-  if (inputElementsArray.some(inputElement => !inputElement.validity.valid)) {
-    submitButton.classList.add(selectors.inactiveButtonClass);
-    submitButton.setAttribute('disabled', true);
-  } else {
+const setSubmitButtonAbility = (submitButton, inactiveButtonClass, isFormValid) => {
+  if (isFormValid) {
     submitButton.classList.remove(selectors.inactiveButtonClass);
     submitButton.removeAttribute('disabled', true);
+  } else {
+    submitButton.classList.add(inactiveButtonClass);
+    submitButton.setAttribute('disabled', true);
   }
+}
+
+const checkValidityForSubmit = (inputElementsArray, submitButton, selectors) => {
+  const isFormValid = !inputElementsArray.some(inputElement => !inputElement.validity.valid);
+  setSubmitButtonAbility(submitButton, selectors.inactiveButtonClass, isFormValid);
 }
 
 const setEventListeners = (formElement, selectors) => {
