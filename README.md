@@ -13,11 +13,10 @@ The following technologies were used:
 1. Grid Layout
 1. Media queries
 1. BEM (Nested structure)
-1. Basic JavaScript
+1. JavaScript
+1. OOP
 
 ### Future Plans
 
 * Make cross browser
 * Save edited name and occupation
-* Add possibility to like photos
-* Add possibility to add photos
