@@ -1,3 +1,6 @@
+import { Card } from "./Card.js";
+import {FormValidator} from "./FormValidator.js";
+ 
 const initialCards = [
   {
     name: "Архыз",
@@ -30,8 +33,17 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+
+const selectors = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorSelector: '.popup__error'
+}
+
 const cardsGrid = document.querySelector('.places__grid');
-const cardTemplate = document.querySelector("#place").content;
+const templateSelector = "#place";
 // Buttons that open popups
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -53,40 +65,25 @@ const popupPhoto = popupShowCard.querySelector('.popup__photo');
 const popupCaption = popupShowCard.querySelector('.popup__caption');
 // Array with all popups
 const popups = document.querySelectorAll('.popup');
-
-const toggleLike = (event) => {
-  const buttonLike = event.target;
-  buttonLike.classList.toggle('place__icon-like_active');
-}
-
-const createCard = (cardData) => {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardPhoto = cardElement.querySelector('.place__photo');
-  const cardTitle = cardElement.querySelector('.place__title');
-  const cardButtonLike = cardElement.querySelector('.place__icon-like');
-  const cardButtonDelete = cardElement.querySelector('.place__icon-delete');
-
-  cardPhoto.src = cardData.link;
-  cardPhoto.alt = 'Фото, ' + cardData.name;
-  cardTitle.textContent = cardData.name;
-
-  cardPhoto.addEventListener('click', () => openPopupShowCard(cardData));
-  cardButtonLike.addEventListener('click', toggleLike);
-  cardButtonDelete.addEventListener('click', deleteCard);
-  return cardElement;
-}
+// Array with all forms
+const formElementsArray = Array.from(document.forms);
 
 const addCard = (cardData, inStart = true) => {
-  const cardElement = createCard(cardData);
+  const card = new Card(cardData, templateSelector)
+  const cardElement = card.generateCard();
 
   if (inStart) cardsGrid.prepend(cardElement)
   else cardsGrid.append(cardElement);
 }
 
-const deleteCard = (event) => {
-  const buttonDelete = event.target;
-  cardElement = buttonDelete.closest('.place');
-  cardElement.remove();
+const setSubmitButtonAbility = (submitButton, inactiveButtonClass, isFormValid) => {
+  if (isFormValid) {
+    submitButton.classList.remove(selectors.inactiveButtonClass);
+    submitButton.removeAttribute('disabled', true);
+  } else {
+    submitButton.classList.add(inactiveButtonClass);
+    submitButton.setAttribute('disabled', true);
+  }
 }
 
 const togglePopup = (popup) => {
@@ -148,7 +145,7 @@ const submitPopupEditProfile = (event) => {
 
 const openPopupAddCard = () => {
   setSubmitButtonAbility(buttonSubmitCard, selectors.inactiveButtonClass, false);
-  openPopup(popupAddCard);
+  openPopup(popupAddCard)
 }
 
 const submitPopupAddCard = (event) => {
@@ -162,10 +159,10 @@ const submitPopupAddCard = (event) => {
   inputLink.value = '';
 }
 
-const openPopupShowCard = (cardData) => {
-  popupPhoto.src = cardData.link;
-  popupPhoto.alt = 'Фото, ' + cardData.name;
-  popupCaption.textContent = cardData.name;
+const openPopupShowCard = (card) => {
+  popupPhoto.src = card.photoSrc;
+  popupPhoto.alt = card.photoAlt;
+  popupCaption.textContent = card.name;
   openPopup(popupShowCard);
 }
 
@@ -179,3 +176,12 @@ popups.forEach(popup => popup.addEventListener('click', closePopupByClick));
 // Add listeners to buttons that submit popups
 buttonSubmitProfile.addEventListener('click', submitPopupEditProfile);
 buttonSubmitCard.addEventListener('click', submitPopupAddCard);
+// Enable validation for all forms
+formElementsArray.forEach(formElement => {
+  const formValidator = new FormValidator(selectors, formElement);
+  formValidator.enableValidation();
+});
+
+export {openPopupShowCard, setSubmitButtonAbility};
+
+
