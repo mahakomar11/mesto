@@ -2,6 +2,11 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 10px 10px 0 0;
   cursor: pointer;
+  transition: ease-out 0.2s;
+}
+
+.place__photo:hover {
+  transform: scale(1.05, 1.05);
+  transition: ease-out 0.2s;
 }
