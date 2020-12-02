@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor(selectors, formElement) {
     this._inputSelector = selectors.inputSelector;
     this._submitButtonSelector = selectors.submitButtonSelector;
@@ -15,18 +15,24 @@ class FormValidator {
     );
   }
 
-  static setSubmitButtonAbility(
-    submitButton,
-    inactiveButtonClass,
-    isFormValid
-  ) {
-    if (isFormValid) {
-      submitButton.classList.remove(inactiveButtonClass);
-      submitButton.removeAttribute("disabled", true);
+  _setSubmitButtonAbility() {
+    if (this._isFormValid) {
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.removeAttribute("disabled", true);
     } else {
-      submitButton.classList.add(inactiveButtonClass);
-      submitButton.setAttribute("disabled", true);
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.setAttribute("disabled", true);
     }
+  }
+
+  resetErrors() {
+    this._formElement.querySelectorAll(this._errorSelector).forEach((error) => {
+      error.textContent = "";
+    });
+    this._formElement.querySelectorAll(this._inputSelector).forEach((input) => {
+      input.classList.remove(this._inputErrorClass);
+    });
+    this._checkValidityForSubmit();
   }
 
   _setEventListeners() {
@@ -57,16 +63,10 @@ class FormValidator {
     this._isFormValid = !this._inputElementsArray.some(
       (inputElement) => !inputElement.validity.valid
     );
-    FormValidator.setSubmitButtonAbility(
-      this._submitButton,
-      this._inactiveButtonClass,
-      this._isFormValid
-    );
+    this._setSubmitButtonAbility();
   }
 
   enableValidation() {
     this._setEventListeners();
   }
 }
-
-export { FormValidator };
