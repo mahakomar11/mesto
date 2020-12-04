@@ -1,4 +1,3 @@
-// TODO: Привести в порядок
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import Section from "../components/Section.js";
@@ -13,6 +12,7 @@ import {
   buttonAdd,
   buttonEdit,
 } from "../utils/constants.js";
+import "./index.css";
 
 // Submitters
 const submitEditProfile = (inputValues) => {
