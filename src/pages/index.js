@@ -7,34 +7,54 @@ import FormValidator from "../components/FormValidator.js";
 import {
   initialCards,
   selectors,
-  cardsGrid,
   templateSelector,
   buttonAdd,
   buttonEdit,
 } from "../utils/constants.js";
 import "./index.css";
 
-// Submitters
-const submitEditProfile = (inputValues) => {
-  userInfo.setUserInfo(inputValues);
+// Cards functions
+const handleCardClick = (card) => {
+  popupShowCard.open({
+    src: card.photoSrc,
+    alt: card.photoAlt,
+    caption: card.name,
+  });
 };
 
-const submitAddCard = (inputValues) => {
+const renderCard = (cardData, inTheBegining) => {
   const card = new Card(
     {
-      name: inputValues.title,
-      link: inputValues.link,
+      name: cardData.title,
+      link: cardData.link,
       handleCardClick: handleCardClick,
     },
     templateSelector
   );
   const cardElement = card.generateCard();
-  cardsGrid.prepend(cardElement);
+  sectionCards.addItem(cardElement, (inTheBegining = inTheBegining));
+};
+
+// Render initial cards
+const sectionCards = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => renderCard(cardData, false),
+  },
+  ".places__grid"
+);
+sectionCards.renderItems();
+
+// Submitters
+const submitEditProfile = (inputValues) => {
+  userInfo.setUserInfo(inputValues);
 };
 
 // Popups
 const popupShowCard = new PopupWithImage(".popup_type_show-card");
-const popupAddCard = new PopupWithForm(".popup_type_add-card", submitAddCard);
+const popupAddCard = new PopupWithForm(".popup_type_add-card", (inputValues) =>
+  renderCard(inputValues, true)
+);
 const popupEditProfile = new PopupWithForm(
   ".popup_type_edit-profile",
   submitEditProfile
@@ -68,34 +88,19 @@ buttonEdit.addEventListener("click", () => {
   popupEditProfile.open();
 });
 
-// Cards functions
-const handleCardClick = (card) => {
-  popupShowCard.open({
-    src: card.photoSrc,
-    alt: card.photoAlt,
-    caption: card.name,
-  });
-};
 
-const renderCard = (cardData) => {
-  const card = new Card(
-    {
-      name: cardData.name,
-      link: cardData.link,
-      handleCardClick: handleCardClick,
-    },
-    templateSelector
-  );
-  const cardElement = card.generateCard();
-  cardsGrid.append(cardElement);
-};
 
-// Render initial cards
-const sectionCards = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  ".places__grid"
-);
-sectionCards.renderItems();
+// const renderCard = (cardData) => {
+//   const card = new Card(
+//     {
+//       name: cardData.name,
+//       link: cardData.link,
+//       handleCardClick: handleCardClick,
+//     },
+//     templateSelector
+//   );
+//   const cardElement = card.generateCard();
+//   cardsGrid.append(cardElement);
+// };
+
+
