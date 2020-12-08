@@ -26,6 +26,7 @@
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/_type/popup_type_edit-profile.css");
 @import url("../blocks/popup/_type/popup_type_add-card.css");
+@import url("../blocks/popup/_type/popup_type_delete-card.css");
 @import url("../blocks/popup/_type/popup_type_show-card.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
 @import url("../blocks/popup/__container/popup__container.css");
