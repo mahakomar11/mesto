@@ -9,7 +9,8 @@ import {
   selectors,
   templateSelector,
   buttonAdd,
-  buttonEdit,
+  buttonEditProfile,
+  buttonEditAvatar
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -22,12 +23,17 @@ const handleCardClick = (card) => {
   });
 };
 
+const handleDeleteClick = () => {
+  popupDeleteCard.open();
+};
+
 const renderCard = (cardData, inTheBegining) => {
   const card = new Card(
     {
       name: cardData.title,
       link: cardData.link,
       handleCardClick: handleCardClick,
+      handleDeleteClick: handleDeleteClick,
     },
     templateSelector
   );
@@ -59,10 +65,17 @@ const popupEditProfile = new PopupWithForm(
   ".popup_type_edit-profile",
   submitEditProfile
 );
+const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", () => {});
+const popupEditAvatar = new PopupWithForm(".popup_type_edit-avatar", (inputValues) => {
+  document.querySelector(".profile__avatar").src = inputValues.link;
+  console.log(inputValues.link);
+});
 // Set listeners to popups
 popupShowCard.setEventListeners();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
+popupDeleteCard.setEventListeners();
+popupEditAvatar.setEventListeners();
 // Forms validators
 const validatorEditProfile = new FormValidator(
   selectors,
@@ -72,9 +85,14 @@ const validatorAddCard = new FormValidator(
   selectors,
   popupAddCard.popup.querySelector("form")
 );
+const validatorEditAvatar = new FormValidator(
+  selectors,
+  popupEditAvatar.popup.querySelector("form")
+)
 // Enable validation
 validatorEditProfile.enableValidation();
 validatorAddCard.enableValidation();
+validatorEditAvatar.enableValidation();
 // Info in profile
 const userInfo = new UserInfo({ name: ".profile__name", job: ".profile__job" });
 // Set listeners to buttons that open popups
@@ -82,11 +100,15 @@ buttonAdd.addEventListener("click", () => {
   validatorAddCard.resetErrors();
   popupAddCard.open();
 });
-buttonEdit.addEventListener("click", () => {
+buttonEditProfile.addEventListener("click", () => {
   popupEditProfile.setInputValues(userInfo.getUserInfo());
   validatorEditProfile.resetErrors();
   popupEditProfile.open();
 });
+buttonEditAvatar.addEventListener("click", () => {
+  validatorEditAvatar.resetErrors();
+  popupEditAvatar.open();
+})
 
 
 

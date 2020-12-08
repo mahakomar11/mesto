@@ -41,6 +41,7 @@ const selectors = {
 
 const templateSelector = "#place";
 const buttonAdd = document.querySelector(".profile__add-button");
-const buttonEdit = document.querySelector(".profile__edit-button");
+const buttonEditProfile = document.querySelector(".profile__edit-button");
+const buttonEditAvatar = document.querySelector(".profile__edit-avatar-button");
 
-export { initialCards, selectors, templateSelector, buttonAdd, buttonEdit};
+export { initialCards, selectors, templateSelector, buttonAdd, buttonEditProfile, buttonEditAvatar};

@@ -5,6 +5,7 @@ export default class Card {
     this.photoAlt = `Фото, ${this.name}`;
     this._templateSelector = templateSelector;
     this._handleCardClick = data.handleCardClick;
+    this._handleDeleteClick = data.handleDeleteClick;
   }
 
   _toggleLike() {
@@ -21,7 +22,7 @@ export default class Card {
     this._buttonLike.addEventListener("click", () => this._toggleLike());
 
     const buttonDelete = this._element.querySelector(".place__icon-delete");
-    buttonDelete.addEventListener("click", () => this._deleteCard());
+    buttonDelete.addEventListener("click", () => this._handleDeleteClick());
 
     this._photo.addEventListener("click", () => this._handleCardClick(this));
   }
