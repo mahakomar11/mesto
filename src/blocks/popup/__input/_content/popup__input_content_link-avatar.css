@@ -1,0 +1,9 @@
+.popup__input_content_link-avatar {
+  margin-top: 38px;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__input_content_link-avatar {
+    margin-top: 56px;
+  }
+}

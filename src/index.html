@@ -48,6 +48,18 @@
       </div>
     </section>
 
+    <section class="popup popup_type_edit-avatar">
+      <div class="popup__container popup__container_type_edit-avatar">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form name="edit-avatar" class="popup__form">
+          <input type="url" name="link" id="link" class="popup__input popup__input_content_link-avatar" placeholder="Ссылка на картинку" required>
+          <span class="popup__error" id="link-error"></span>
+          <button type="submit" class="popup__submit-button popup__submit-button_disabled" disabled>Создать</button>
+        </form>
+        <button type="button" area-label="Close" class="popup__close-button"></button>
+      </div>
+    </section>
+
     <section class="popup popup_type_add-card">
       <div class="popup__container popup__container_type_add-card">
         <h2 class="popup__title">Новое место</h2>
