@@ -12,7 +12,7 @@ export default class Card {
     this._buttonLike.classList.toggle("place__icon-like_active");
   }
 
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
     this._element = null;
   }
@@ -22,7 +22,7 @@ export default class Card {
     this._buttonLike.addEventListener("click", () => this._toggleLike());
 
     const buttonDelete = this._element.querySelector(".place__icon-delete");
-    buttonDelete.addEventListener("click", () => this._handleDeleteClick());
+    buttonDelete.addEventListener("click", () => this._handleDeleteClick(this));
 
     this._photo.addEventListener("click", () => this._handleCardClick(this));
   }

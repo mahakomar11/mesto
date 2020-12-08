@@ -23,8 +23,9 @@ const handleCardClick = (card) => {
   });
 };
 
-const handleDeleteClick = () => {
+const handleDeleteClick = (card) => {
   popupDeleteCard.open();
+  popupDeleteCard.setInputValues(card)
 };
 
 const renderCard = (cardData, inTheBegining) => {
@@ -65,7 +66,9 @@ const popupEditProfile = new PopupWithForm(
   ".popup_type_edit-profile",
   submitEditProfile
 );
-const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", () => {});
+const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", (card) => {
+  card.deleteCard();
+});
 const popupEditAvatar = new PopupWithForm(".popup_type_edit-avatar", (inputValues) => {
   document.querySelector(".profile__avatar").src = inputValues.link;
   console.log(inputValues.link);
