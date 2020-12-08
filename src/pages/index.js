@@ -5,14 +5,14 @@ import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import {
-  initialCards,
   selectors,
   templateSelector,
   buttonAdd,
   buttonEditProfile,
-  buttonEditAvatar
+  buttonEditAvatar,
 } from "../utils/constants.js";
 import "./index.css";
+import Api from "../components/Api.js";
 
 // Cards functions
 const handleCardClick = (card) => {
@@ -25,7 +25,7 @@ const handleCardClick = (card) => {
 
 const handleDeleteClick = (card) => {
   popupDeleteCard.open();
-  popupDeleteCard.setInputValues(card)
+  popupDeleteCard.setInputValues(card);
 };
 
 const renderCard = (cardData, inTheBegining) => {
@@ -41,16 +41,6 @@ const renderCard = (cardData, inTheBegining) => {
   const cardElement = card.generateCard();
   sectionCards.addItem(cardElement, (inTheBegining = inTheBegining));
 };
-
-// Render initial cards
-const sectionCards = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => renderCard(cardData, false),
-  },
-  ".places__grid"
-);
-sectionCards.renderItems();
 
 // Submitters
 const submitEditProfile = (inputValues) => {
@@ -69,10 +59,13 @@ const popupEditProfile = new PopupWithForm(
 const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", (card) => {
   card.deleteCard();
 });
-const popupEditAvatar = new PopupWithForm(".popup_type_edit-avatar", (inputValues) => {
-  document.querySelector(".profile__avatar").src = inputValues.link;
-  console.log(inputValues.link);
-});
+const popupEditAvatar = new PopupWithForm(
+  ".popup_type_edit-avatar",
+  (inputValues) => {
+    document.querySelector(".profile__avatar").src = inputValues.link;
+    console.log(inputValues.link);
+  }
+);
 // Set listeners to popups
 popupShowCard.setEventListeners();
 popupAddCard.setEventListeners();
@@ -91,7 +84,7 @@ const validatorAddCard = new FormValidator(
 const validatorEditAvatar = new FormValidator(
   selectors,
   popupEditAvatar.popup.querySelector("form")
-)
+);
 // Enable validation
 validatorEditProfile.enableValidation();
 validatorAddCard.enableValidation();
@@ -111,21 +104,32 @@ buttonEditProfile.addEventListener("click", () => {
 buttonEditAvatar.addEventListener("click", () => {
   validatorEditAvatar.resetErrors();
   popupEditAvatar.open();
-})
+});
 
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-18",
+  headers: {
+    authorization: "315ad660-d92f-49d2-a7f7-3bcfa435f3a6",
+    "Content-type": "application/json",
+  },
+});
 
+const test = 1;
 
-// const renderCard = (cardData) => {
-//   const card = new Card(
-//     {
-//       name: cardData.name,
-//       link: cardData.link,
-//       handleCardClick: handleCardClick,
-//     },
-//     templateSelector
-//   );
-//   const cardElement = card.generateCard();
-//   cardsGrid.append(cardElement);
-// };
+const sectionCards = new Section(
+  {
+    items: [],
+    renderer: (cardData) => renderCard(cardData, false),
+  },
+  ".places__grid"
+);
 
+api.getInitialCards()
+  .then((data) => {
+    data.forEach((item) =>
+      renderCard({ title: item.name, link: item.link }, false)
+    );
+  })
+  .catch((err) => alert(err));
 
+// console.log(initialCards);
