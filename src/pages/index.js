@@ -14,6 +14,9 @@ import {
 import "./index.css";
 import Api from "../components/Api.js";
 
+// Info in profile
+const userInfo = new UserInfo({ name: ".profile__name", job: ".profile__job", avatar: ".profile__avatar" });
+
 // Cards functions
 const handleCardClick = (card) => {
   popupShowCard.open({
@@ -62,8 +65,7 @@ const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", (card) => {
 const popupEditAvatar = new PopupWithForm(
   ".popup_type_edit-avatar",
   (inputValues) => {
-    document.querySelector(".profile__avatar").src = inputValues.link;
-    console.log(inputValues.link);
+    userInfo.setUserAvatar(inputValues.link);
   }
 );
 // Set listeners to popups
@@ -89,8 +91,7 @@ const validatorEditAvatar = new FormValidator(
 validatorEditProfile.enableValidation();
 validatorAddCard.enableValidation();
 validatorEditAvatar.enableValidation();
-// Info in profile
-const userInfo = new UserInfo({ name: ".profile__name", job: ".profile__job" });
+
 // Set listeners to buttons that open popups
 buttonAdd.addEventListener("click", () => {
   validatorAddCard.resetErrors();
@@ -132,4 +133,8 @@ api.getInitialCards()
   })
   .catch((err) => alert(err));
 
-// console.log(initialCards);
+api.getUserInfo()
+  .then((data) => {
+    userInfo.setUserInfo({name: data.name, job: data.about});
+    userInfo.setUserAvatar(data.avatar);
+  })
