@@ -29,4 +29,33 @@ export default class Api {
       }
     });
   }
+
+  patchUserInfo(info) {
+    return fetch(this._userUrl, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ name: info.name, about: info.about})
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Ошибка ${response.status}`);
+      }
+    });
+  }
+
+  patchUserAvatar(link) {
+    const avaUrl = `${this._userUrl}/avatar`;
+    return fetch(avaUrl, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ avatar: link})
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Ошибка ${response.status}`);
+      }
+    });
+  }
 }

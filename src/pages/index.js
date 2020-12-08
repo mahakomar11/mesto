@@ -15,7 +15,20 @@ import "./index.css";
 import Api from "../components/Api.js";
 
 // Info in profile
-const userInfo = new UserInfo({ name: ".profile__name", job: ".profile__job", avatar: ".profile__avatar" });
+const userInfo = new UserInfo({
+  name: ".profile__name",
+  job: ".profile__job",
+  avatar: ".profile__avatar",
+});
+
+// Section with cards
+const sectionCards = new Section(
+  {
+    items: [],
+    renderer: (cardData) => renderCard(cardData, false),
+  },
+  ".places__grid"
+);
 
 // Cards functions
 const handleCardClick = (card) => {
@@ -48,6 +61,17 @@ const renderCard = (cardData, inTheBegining) => {
 // Submitters
 const submitEditProfile = (inputValues) => {
   userInfo.setUserInfo(inputValues);
+  api.patchUserInfo({
+      name: inputValues.name,
+      about: inputValues.job,
+    })
+    .catch((err) => alert(err));
+};
+
+const submitEditAvatar = (inputValues) => {
+  userInfo.setUserAvatar(inputValues.link);
+  api.patchUserAvatar(inputValues.link)
+    .catch((err) => alert(err));
 };
 
 // Popups
@@ -64,9 +88,7 @@ const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", (card) => {
 });
 const popupEditAvatar = new PopupWithForm(
   ".popup_type_edit-avatar",
-  (inputValues) => {
-    userInfo.setUserAvatar(inputValues.link);
-  }
+  submitEditAvatar
 );
 // Set listeners to popups
 popupShowCard.setEventListeners();
@@ -115,16 +137,6 @@ const api = new Api({
   },
 });
 
-const test = 1;
-
-const sectionCards = new Section(
-  {
-    items: [],
-    renderer: (cardData) => renderCard(cardData, false),
-  },
-  ".places__grid"
-);
-
 api.getInitialCards()
   .then((data) => {
     data.forEach((item) =>
@@ -135,6 +147,6 @@ api.getInitialCards()
 
 api.getUserInfo()
   .then((data) => {
-    userInfo.setUserInfo({name: data.name, job: data.about});
+    userInfo.setUserInfo({ name: data.name, job: data.about });
     userInfo.setUserAvatar(data.avatar);
-  })
+});
