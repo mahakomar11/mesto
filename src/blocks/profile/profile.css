@@ -1,4 +1,5 @@
 .profile {
+  position: relative;
   width: 88%;
   max-width: 882px;
   display: flex;
