@@ -14,12 +14,55 @@ import {
 import "./index.css";
 import Api from "../components/Api.js";
 
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-18",
+  headers: {
+    authorization: "315ad660-d92f-49d2-a7f7-3bcfa435f3a6",
+    "Content-type": "application/json",
+  },
+});
+
 // Info in profile
 const userInfo = new UserInfo({
   name: ".profile__name",
   job: ".profile__job",
   avatar: ".profile__avatar",
 });
+
+api.getUserInfo().then((data) => {
+  userInfo.setUserInfo({ name: data.name, job: data.about });
+  userInfo.setUserAvatar(data.avatar);
+  userInfo.id = data._id;
+});
+
+api
+  .getInitialCards()
+  .then((data) => {
+    data.forEach((item) => {
+      renderCard(
+        {
+          title: item.name,
+          link: item.link,
+          countLikes: item.likes.length,
+          id: item._id,
+          isLiked: getIsLiked(item.likes, userInfo.id),
+        },
+        false
+      );
+    });
+  })
+  .catch((err) => alert(err));
+
+const getIsLiked = (likesArray, userId) => {
+  var isLiked = false;
+  likesArray.forEach((user) => {
+    if (user._id == userId) {
+      isLiked = true;
+      return;
+    }
+  });
+  return isLiked;
+};
 
 // Section with cards
 const sectionCards = new Section(
@@ -68,6 +111,9 @@ const renderCard = (cardData, inTheBegining) => {
   );
   const cardElement = card.generateCard();
   sectionCards.addItem(cardElement, (inTheBegining = inTheBegining));
+  if (inTheBegining) {
+    console.log(card);
+  }
 };
 
 // Submitters
@@ -86,28 +132,45 @@ const submitEditAvatar = (inputValues) => {
   api.patchUserAvatar(inputValues.link).catch((err) => alert(err));
 };
 
+const submitAddCard = (inputValues) => {
+  api
+    .addCard({ name: inputValues.title, link: inputValues.link })
+    .then((data) => {
+      renderCard(
+        {
+          title: data.name,
+          link: data.link,
+          countLikes: data.likes.length,
+          id: data._id,
+          isLiked: false,
+        },
+        true
+      );
+    });
+};
+
 // Popups
-const popupShowCard = new PopupWithImage(".popup_type_show-card");
-const popupAddCard = new PopupWithForm(".popup_type_add-card", (inputValues) =>
-  renderCard(inputValues, true)
-);
 const popupEditProfile = new PopupWithForm(
   ".popup_type_edit-profile",
   submitEditProfile
 );
-const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", (card) => {
-  card.deleteCard();
-});
 const popupEditAvatar = new PopupWithForm(
   ".popup_type_edit-avatar",
   submitEditAvatar
 );
+const popupAddCard = new PopupWithForm(".popup_type_add-card", submitAddCard);
+const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", (card) => {
+  card.deleteCard();
+});
+const popupShowCard = new PopupWithImage(".popup_type_show-card");
+
 // Set listeners to popups
 popupShowCard.setEventListeners();
 popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
 popupDeleteCard.setEventListeners();
 popupEditAvatar.setEventListeners();
+
 // Forms validators
 const validatorEditProfile = new FormValidator(
   selectors,
@@ -121,6 +184,7 @@ const validatorEditAvatar = new FormValidator(
   selectors,
   popupEditAvatar.popup.querySelector("form")
 );
+
 // Enable validation
 validatorEditProfile.enableValidation();
 validatorAddCard.enableValidation();
@@ -140,46 +204,3 @@ buttonEditAvatar.addEventListener("click", () => {
   validatorEditAvatar.resetErrors();
   popupEditAvatar.open();
 });
-
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-18",
-  headers: {
-    authorization: "315ad660-d92f-49d2-a7f7-3bcfa435f3a6",
-    "Content-type": "application/json",
-  },
-});
-
-api
-  .getInitialCards()
-  .then((data) => {
-    data.forEach((item) => {
-      renderCard(
-        {
-          title: item.name,
-          link: item.link,
-          countLikes: item.likes.length,
-          id: item._id,
-          isLiked: getIsLiked(item.likes, userInfo.id),
-        },
-        false
-      );
-    });
-  })
-  .catch((err) => alert(err));
-
-api.getUserInfo().then((data) => {
-  userInfo.setUserInfo({ name: data.name, job: data.about });
-  userInfo.setUserAvatar(data.avatar);
-  userInfo.id = data._id;
-});
-
-const getIsLiked = (likesArray, userId) => {
-  var isLiked = false;
-  likesArray.forEach((user) => {
-    if (user._id == userId) {
-      isLiked = true;
-      return;
-    }
-  });
-  return isLiked;
-};

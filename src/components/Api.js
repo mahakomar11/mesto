@@ -59,23 +59,24 @@ export default class Api {
     });
   }
 
-  // putLike(cardId) {
-  //   return fetch(`${this._cardsUrl}/likes/${cardId}`, {
-  //     method: "PUT",
-  //     headers: this._headers,
-  //   }).then((response) => {
-  //     if (response.ok) {
-  //       return response.json();
-  //     } else {
-  //       return Promise.reject(`Ошибка ${response.status}`);
-  //     }
-  //   });
-  // }
-
   handleLike(cardId, method) {
     return fetch(`${this._cardsUrl}/likes/${cardId}`, {
       method: method,
       headers: this._headers,
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Ошибка ${response.status}`);
+      }
+    });
+  }
+
+  addCard(cardData) {
+    return fetch(this._cardsUrl, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(cardData),
     }).then((response) => {
       if (response.ok) {
         return response.json();

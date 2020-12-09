@@ -53,7 +53,6 @@ export default class Card {
     this._setEventListeners();
 
     if (this.isLiked) {
-      console.log(this._buttonLike.classList)
       this._buttonLike.classList.add("place__icon-like_active");
     }
 
