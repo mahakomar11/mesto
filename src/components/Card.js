@@ -3,13 +3,19 @@ export default class Card {
     this.name = data.name;
     this.photoSrc = data.link;
     this.photoAlt = `Фото, ${this.name}`;
+    this.countLikes = data.countLikes;
+    this.id = data.id;
+    this.isLiked = data.isLiked;
     this._templateSelector = templateSelector;
     this._handleCardClick = data.handleCardClick;
     this._handleDeleteClick = data.handleDeleteClick;
+    this._handleLike = data.handleLike;
   }
 
   _toggleLike() {
     this._buttonLike.classList.toggle("place__icon-like_active");
+    this._element.querySelector(".place__like-count").textContent = this.countLikes;
+    this.isLiked = !this.isLiked;
   }
 
   deleteCard() {
@@ -19,7 +25,7 @@ export default class Card {
 
   _setEventListeners() {
     this._buttonLike = this._element.querySelector(".place__icon-like");
-    this._buttonLike.addEventListener("click", () => this._toggleLike());
+    this._buttonLike.addEventListener("click", () => this._handleLike(this));
 
     const buttonDelete = this._element.querySelector(".place__icon-delete");
     buttonDelete.addEventListener("click", () => this._handleDeleteClick(this));
@@ -42,8 +48,14 @@ export default class Card {
     this._photo.src = this.photoSrc;
     this._photo.alt = this.photoAlt;
     this._element.querySelector(".place__title").textContent = this.name;
-
+    this._element.querySelector(".place__like-count").textContent = this.countLikes;
+  
     this._setEventListeners();
+
+    if (this.isLiked) {
+      console.log(this._buttonLike.classList)
+      this._buttonLike.classList.add("place__icon-like_active");
+    }
 
     return this._element;
   }

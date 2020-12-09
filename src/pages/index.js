@@ -44,13 +44,25 @@ const handleDeleteClick = (card) => {
   popupDeleteCard.setInputValues(card);
 };
 
+const handleLike = (card) => {
+  const method = card.isLiked ? "DELETE" : "PUT";
+  api.handleLike(card.id, method).then((data) => {
+    card.countLikes = data.likes.length;
+    card._toggleLike();
+  });
+};
+
 const renderCard = (cardData, inTheBegining) => {
   const card = new Card(
     {
       name: cardData.title,
       link: cardData.link,
+      countLikes: cardData.countLikes,
+      id: cardData.id,
+      isLiked: cardData.isLiked,
       handleCardClick: handleCardClick,
       handleDeleteClick: handleDeleteClick,
+      handleLike: handleLike,
     },
     templateSelector
   );
@@ -61,7 +73,8 @@ const renderCard = (cardData, inTheBegining) => {
 // Submitters
 const submitEditProfile = (inputValues) => {
   userInfo.setUserInfo(inputValues);
-  api.patchUserInfo({
+  api
+    .patchUserInfo({
       name: inputValues.name,
       about: inputValues.job,
     })
@@ -70,8 +83,7 @@ const submitEditProfile = (inputValues) => {
 
 const submitEditAvatar = (inputValues) => {
   userInfo.setUserAvatar(inputValues.link);
-  api.patchUserAvatar(inputValues.link)
-    .catch((err) => alert(err));
+  api.patchUserAvatar(inputValues.link).catch((err) => alert(err));
 };
 
 // Popups
@@ -137,16 +149,37 @@ const api = new Api({
   },
 });
 
-api.getInitialCards()
+api
+  .getInitialCards()
   .then((data) => {
-    data.forEach((item) =>
-      renderCard({ title: item.name, link: item.link }, false)
-    );
+    data.forEach((item) => {
+      renderCard(
+        {
+          title: item.name,
+          link: item.link,
+          countLikes: item.likes.length,
+          id: item._id,
+          isLiked: getIsLiked(item.likes, userInfo.id),
+        },
+        false
+      );
+    });
   })
   .catch((err) => alert(err));
 
-api.getUserInfo()
-  .then((data) => {
-    userInfo.setUserInfo({ name: data.name, job: data.about });
-    userInfo.setUserAvatar(data.avatar);
+api.getUserInfo().then((data) => {
+  userInfo.setUserInfo({ name: data.name, job: data.about });
+  userInfo.setUserAvatar(data.avatar);
+  userInfo.id = data._id;
 });
+
+const getIsLiked = (likesArray, userId) => {
+  var isLiked = false;
+  likesArray.forEach((user) => {
+    if (user._id == userId) {
+      isLiked = true;
+      return;
+    }
+  });
+  return isLiked;
+};
