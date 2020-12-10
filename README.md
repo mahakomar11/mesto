@@ -16,7 +16,8 @@ The following technologies were used:
 1. Webpack
 1. Babel
 1. PostCSS
+1. API
 
 ### Future Plans
 
-* Save edited name and occupation
+* Upload to server
