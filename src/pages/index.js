@@ -14,6 +14,7 @@ import {
 import "./index.css";
 import Api from "../components/Api.js";
 
+// API
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-18",
   headers: {
@@ -29,14 +30,16 @@ const userInfo = new UserInfo({
   avatar: ".profile__avatar",
 });
 
-api.getUserInfo().then((data) => {
-  userInfo.setUserInfo({ name: data.name, job: data.about });
-  userInfo.setUserAvatar(data.avatar);
-  userInfo.id = data._id;
-});
+// Get initial cards and user info
+api.getUserInfo()
+  .then((data) => {
+    userInfo.setUserInfo({ name: data.name, job: data.about });
+    userInfo.setUserAvatar(data.avatar);
+    userInfo.id = data._id;
+  })
+  .catch((err) => alert(err));
 
-api
-  .getInitialCards()
+api.getInitialCards()
   .then((data) => {
     data.forEach((item) => {
       renderCard(
@@ -94,10 +97,12 @@ const handleDeleteClick = (card) => {
 
 const handleLike = (card) => {
   const method = card.isLiked ? "DELETE" : "PUT";
-  api.handleLike(card.id, method).then((data) => {
-    card.countLikes = data.likes.length;
-    card._toggleLike();
-  });
+  api.handleLike(card.id, method)
+    .then((data) => {
+      card.countLikes = data.likes.length;
+      card.toggleLike();
+    })
+    .catch((err) => alert(err));
 };
 
 const renderCard = (cardData, inTheBegining) => {
@@ -117,30 +122,38 @@ const renderCard = (cardData, inTheBegining) => {
   );
   const cardElement = card.generateCard();
   sectionCards.addItem(cardElement, (inTheBegining = inTheBegining));
-  if (inTheBegining) {
-    console.log(card);
-  }
 };
 
 // Submitters
 const submitEditProfile = (inputValues) => {
-  userInfo.setUserInfo(inputValues);
+  popupEditProfile.submitButton.textContent = "Сохранение...";
   api
     .patchUserInfo({
       name: inputValues.name,
       about: inputValues.job,
     })
-    .catch((err) => alert(err));
+    .then(() => userInfo.setUserInfo(inputValues))
+    .catch((err) => alert(err))
+    .finally(() => {
+      popupEditProfile.close();
+      popupEditProfile.submitButton.textContent = "Сохранить";
+    });
 };
 
 const submitEditAvatar = (inputValues) => {
-  userInfo.setUserAvatar(inputValues.link);
-  api.patchUserAvatar(inputValues.link).catch((err) => alert(err));
+  popupEditAvatar.submitButton.textContent = "Сохранение...";
+  api.patchUserAvatar(inputValues.link)
+    .then(() => userInfo.setUserAvatar(inputValues.link))
+    .catch((err) => alert(err))
+    .finally(() => {
+      popupEditAvatar.close();
+      popupEditAvatar.submitButton.textContent = "Сохранить";
+    });
 };
 
 const submitAddCard = (inputValues) => {
-  api
-    .addCard({ name: inputValues.title, link: inputValues.link })
+  popupAddCard.submitButton.textContent = "Сохранение...";
+  api.addCard({ name: inputValues.title, link: inputValues.link })
     .then((data) => {
       renderCard(
         {
@@ -153,12 +166,23 @@ const submitAddCard = (inputValues) => {
         },
         true
       );
+    })
+    .catch((err) => alert(err))
+    .finally(() => {
+      popupAddCard.close();
+      popupAddCard.submitButton.textContent = "Создать";
     });
 };
 
 const submitDeleteCard = (card) => {
-  api.deleteCard(card.id).then();
-  card.deleteCard();
+  popupDeleteCard.submitButton.textContent = "Удаление..."
+  api.deleteCard(card.id)
+    .then(() => card.deleteCard())
+    .catch((err) => alert(err))
+    .finally(() => {
+      popupDeleteCard.close();
+      popupDeleteCard.submitButton.textContent = "Да";
+    });
 }
 
 // Popups

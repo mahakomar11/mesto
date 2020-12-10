@@ -13,7 +13,7 @@ export default class Card {
     this._handleLike = data.handleLike;
   }
 
-  _toggleLike() {
+  toggleLike() {
     this._buttonLike.classList.toggle("place__icon-like_active");
     this._element.querySelector(".place__like-count").textContent = this.countLikes;
     this.isLiked = !this.isLiked;
