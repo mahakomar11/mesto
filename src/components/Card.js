@@ -6,6 +6,7 @@ export default class Card {
     this.countLikes = data.countLikes;
     this.id = data.id;
     this.isLiked = data.isLiked;
+    this.isMine = data.isMine;
     this._templateSelector = templateSelector;
     this._handleCardClick = data.handleCardClick;
     this._handleDeleteClick = data.handleDeleteClick;
@@ -27,8 +28,12 @@ export default class Card {
     this._buttonLike = this._element.querySelector(".place__icon-like");
     this._buttonLike.addEventListener("click", () => this._handleLike(this));
 
-    const buttonDelete = this._element.querySelector(".place__icon-delete");
-    buttonDelete.addEventListener("click", () => this._handleDeleteClick(this));
+    if (this.isMine) {
+      this._buttonDelete = this._element.querySelector(".place__icon-delete");
+      this._buttonDelete.classList.add("place__icon-delete_active");
+      this._buttonDelete.addEventListener("click", () => this._handleDeleteClick(this));
+    }
+    
 
     this._photo.addEventListener("click", () => this._handleCardClick(this));
   }

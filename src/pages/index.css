@@ -21,6 +21,7 @@
 @import url("../blocks/place/__icon-like/_active/place__icon-like_active.css");
 @import url("../blocks/place/__like-count/place__like-count.css");
 @import url("../blocks/place/__icon-delete/place__icon-delete.css");
+@import url("../blocks/place/__icon-delete/_active/place__icon-delete_active.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");
 @import url("../blocks/popup/popup.css");

@@ -85,4 +85,17 @@ export default class Api {
       }
     });
   }
+
+  deleteCard(cardId) {
+    return fetch(`${this._cardsUrl}/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Ошибка ${response.status}`);
+      }
+    });
+  }
 }

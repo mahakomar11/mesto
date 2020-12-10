@@ -45,7 +45,8 @@ api
           link: item.link,
           countLikes: item.likes.length,
           id: item._id,
-          isLiked: getIsLiked(item.likes, userInfo.id),
+          isLiked: checkIfLiked(item.likes, userInfo.id),
+          isMine: checkIfMine(item.owner, userInfo.id),
         },
         false
       );
@@ -53,7 +54,7 @@ api
   })
   .catch((err) => alert(err));
 
-const getIsLiked = (likesArray, userId) => {
+const checkIfLiked = (likesArray, userId) => {
   var isLiked = false;
   likesArray.forEach((user) => {
     if (user._id == userId) {
@@ -63,6 +64,10 @@ const getIsLiked = (likesArray, userId) => {
   });
   return isLiked;
 };
+
+const checkIfMine = (owner, userId) => {
+  return owner._id == userId;
+}
 
 // Section with cards
 const sectionCards = new Section(
@@ -103,6 +108,7 @@ const renderCard = (cardData, inTheBegining) => {
       countLikes: cardData.countLikes,
       id: cardData.id,
       isLiked: cardData.isLiked,
+      isMine: cardData.isMine,
       handleCardClick: handleCardClick,
       handleDeleteClick: handleDeleteClick,
       handleLike: handleLike,
@@ -143,11 +149,17 @@ const submitAddCard = (inputValues) => {
           countLikes: data.likes.length,
           id: data._id,
           isLiked: false,
+          isMine: true,
         },
         true
       );
     });
 };
+
+const submitDeleteCard = (card) => {
+  api.deleteCard(card.id).then();
+  card.deleteCard();
+}
 
 // Popups
 const popupEditProfile = new PopupWithForm(
@@ -159,17 +171,15 @@ const popupEditAvatar = new PopupWithForm(
   submitEditAvatar
 );
 const popupAddCard = new PopupWithForm(".popup_type_add-card", submitAddCard);
-const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", (card) => {
-  card.deleteCard();
-});
+const popupDeleteCard = new PopupWithForm(".popup_type_delete-card", submitDeleteCard);
 const popupShowCard = new PopupWithImage(".popup_type_show-card");
 
 // Set listeners to popups
-popupShowCard.setEventListeners();
-popupAddCard.setEventListeners();
 popupEditProfile.setEventListeners();
-popupDeleteCard.setEventListeners();
 popupEditAvatar.setEventListeners();
+popupAddCard.setEventListeners();
+popupDeleteCard.setEventListeners();
+popupShowCard.setEventListeners();
 
 // Forms validators
 const validatorEditProfile = new FormValidator(
