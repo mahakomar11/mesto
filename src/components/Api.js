@@ -43,7 +43,7 @@ export default class Api {
     }).then((response) => this._handleResponse(response));
   }
 
-  handleLike(cardId, method) {
+  handleLikeClick(cardId, method) {
     return fetch(`${this._cardsUrl}/likes/${cardId}`, {
       method: method,
       headers: this._headers,

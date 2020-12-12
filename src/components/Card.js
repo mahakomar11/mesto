@@ -10,11 +10,15 @@ export default class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = data.handleCardClick;
     this._handleDeleteClick = data.handleDeleteClick;
-    this._handleLike = data.handleLike;
+    this._handleLikeClick = data.handleLikeClick;
   }
 
   toggleLike() {
-    this._buttonLike.classList.toggle("place__icon-like_active");
+    if (this.isLiked) {
+      this._buttonLike.classList.remove("place__icon-like_active");
+    } else {
+      this._buttonLike.classList.add("place__icon-like_active");
+    }
     this._element.querySelector(".place__like-count").textContent = this.countLikes;
     this.isLiked = !this.isLiked;
   }
@@ -26,7 +30,7 @@ export default class Card {
 
   _setEventListeners() {
     this._buttonLike = this._element.querySelector(".place__icon-like");
-    this._buttonLike.addEventListener("click", () => this._handleLike(this));
+    this._buttonLike.addEventListener("click", () => this._handleLikeClick(this));
 
     if (this.isMine) {
       this._buttonDelete = this._element.querySelector(".place__icon-delete");

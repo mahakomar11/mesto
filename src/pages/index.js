@@ -91,9 +91,9 @@ const handleDeleteClick = (card) => {
   popupDeleteCard.setInputValues(card);
 };
 
-const handleLike = (card) => {
+const handleLikeClick = (card) => {
   const method = card.isLiked ? "DELETE" : "PUT";
-  api.handleLike(card.id, method)
+  api.handleLikeClick(card.id, method)
     .then((data) => {
       card.countLikes = data.likes.length;
       card.toggleLike();
@@ -112,7 +112,7 @@ const renderCard = (cardData, inTheBegining) => {
       isMine: cardData.isMine,
       handleCardClick: handleCardClick,
       handleDeleteClick: handleDeleteClick,
-      handleLike: handleLike,
+      handleLikeClick: handleLikeClick,
     },
     templateSelector
   );
