@@ -2,7 +2,7 @@
 
 ### Description
 
-Interactive site that allows to save photos from Russia with love (actually, with likes). At the current moment of developing you can change your name and occupation in profile (just don't restart the page, otherwise you'll became Kusto again).
+Interactive site that allows to save photos from Russia with love (actually, with likes).
 
 ### Technologies
 
@@ -16,7 +16,8 @@ The following technologies were used:
 1. Webpack
 1. Babel
 1. PostCSS
+1. API
 
 ### Future Plans
 
-* Save edited name and occupation
+* Upload to server
