@@ -6,42 +6,32 @@ export default class Api {
     this._userUrl = `${this._baseUrl}/users/me`;
   }
 
+  _handleResponse(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      return Promise.reject(`Ошибка ${response.status}`);
+    }
+  }
+
   getInitialCards() {
     return fetch(this._cardsUrl, {
       headers: this._headers,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Ошибка ${response.status}`);
-      }
-    });
+    }).then((response) => this._handleResponse(response));
   }
 
   getUserInfo() {
     return fetch(this._userUrl, {
       headers: this._headers,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Ошибка ${response.status}`);
-      }
-    });
+    }).then((response) => this._handleResponse(response));
   }
 
   patchUserInfo(info) {
     return fetch(this._userUrl, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ name: info.name, about: info.about})
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Ошибка ${response.status}`);
-      }
-    });
+      body: JSON.stringify({ name: info.name, about: info.about }),
+    }).then((response) => this._handleResponse(response));
   }
 
   patchUserAvatar(link) {
@@ -49,27 +39,15 @@ export default class Api {
     return fetch(avaUrl, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar: link})
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Ошибка ${response.status}`);
-      }
-    });
+      body: JSON.stringify({ avatar: link }),
+    }).then((response) => this._handleResponse(response));
   }
 
   handleLike(cardId, method) {
     return fetch(`${this._cardsUrl}/likes/${cardId}`, {
       method: method,
       headers: this._headers,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Ошибка ${response.status}`);
-      }
-    });
+    }).then((response) => this._handleResponse(response));
   }
 
   addCard(cardData) {
@@ -77,25 +55,13 @@ export default class Api {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(cardData),
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Ошибка ${response.status}`);
-      }
-    });
+    }).then((response) => this._handleResponse(response));
   }
 
   deleteCard(cardId) {
     return fetch(`${this._cardsUrl}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(`Ошибка ${response.status}`);
-      }
-    });
+    }).then((response) => this._handleResponse(response));
   }
 }

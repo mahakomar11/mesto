@@ -31,17 +31,12 @@ const userInfo = new UserInfo({
 });
 
 // Get initial cards and user info
-api.getUserInfo()
-  .then((data) => {
-    userInfo.setUserInfo({ name: data.name, job: data.about });
-    userInfo.setUserAvatar(data.avatar);
-    userInfo.id = data._id;
-  })
-  .catch((err) => alert(err));
-
-api.getInitialCards()
-  .then((data) => {
-    data.forEach((item) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    userInfo.setUserInfo({ name: userData.name, job: userData.about });
+    userInfo.setUserAvatar(userData.avatar);
+    userInfo.id = userData._id;
+    cardsData.forEach((item) => {
       renderCard(
         {
           title: item.name,
@@ -57,6 +52,7 @@ api.getInitialCards()
   })
   .catch((err) => alert(err));
 
+// Utils for card data
 const checkIfLiked = (likesArray, userId) => {
   var isLiked = false;
   likesArray.forEach((user) => {
