@@ -128,23 +128,23 @@ const submitEditProfile = (inputValues) => {
       name: inputValues.name,
       about: inputValues.job,
     })
-    .then(() => userInfo.setUserInfo(inputValues))
-    .catch((err) => alert(err))
-    .finally(() => {
+    .then(() => {
+      userInfo.setUserInfo(inputValues);
       popupEditProfile.close();
-      popupEditProfile.submitButton.textContent = "Сохранить";
-    });
+    })
+    .catch((err) => alert(err))
+    .finally(() => popupEditProfile.submitButton.textContent = "Сохранить");
 };
 
 const submitEditAvatar = (inputValues) => {
   popupEditAvatar.submitButton.textContent = "Сохранение...";
   api.patchUserAvatar(inputValues.link)
-    .then(() => userInfo.setUserAvatar(inputValues.link))
-    .catch((err) => alert(err))
-    .finally(() => {
+    .then(() => {
+      userInfo.setUserAvatar(inputValues.link);
       popupEditAvatar.close();
-      popupEditAvatar.submitButton.textContent = "Сохранить";
-    });
+    })
+    .catch((err) => alert(err))
+    .finally(() => popupEditAvatar.submitButton.textContent = "Сохранить");
 };
 
 const submitAddCard = (inputValues) => {
@@ -162,23 +162,21 @@ const submitAddCard = (inputValues) => {
         },
         true
       );
+      popupAddCard.close();
     })
     .catch((err) => alert(err))
-    .finally(() => {
-      popupAddCard.close();
-      popupAddCard.submitButton.textContent = "Создать";
-    });
+    .finally(() => popupAddCard.submitButton.textContent = "Создать");
 };
 
 const submitDeleteCard = (card) => {
   popupDeleteCard.submitButton.textContent = "Удаление..."
   api.deleteCard(card.id)
-    .then(() => card.deleteCard())
-    .catch((err) => alert(err))
-    .finally(() => {
+    .then(() => {
+      card.deleteCard();
       popupDeleteCard.close();
-      popupDeleteCard.submitButton.textContent = "Да";
-    });
+    })
+    .catch((err) => alert(err))
+    .finally(() => popupDeleteCard.submitButton.textContent = "Да");
 }
 
 // Popups
