@@ -1,5 +1,7 @@
 # Project Mesto.Russia
 
+(mahakomar11.github.io/mesto/)[https://mahakomar11.github.io/mesto/]
+
 ### Description
 
 Interactive site that allows to save photos from Russia with love (actually, with likes).
@@ -17,7 +19,3 @@ The following technologies were used:
 1. Babel
 1. PostCSS
 1. API
-
-### Future Plans
-
-* Upload to server
