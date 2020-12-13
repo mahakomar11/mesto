@@ -1,6 +1,6 @@
 # Project Mesto.Russia
 
-(mahakomar11.github.io/mesto/)[https://mahakomar11.github.io/mesto/]
+https://mahakomar11.github.io/mesto/
 
 ### Description
 
